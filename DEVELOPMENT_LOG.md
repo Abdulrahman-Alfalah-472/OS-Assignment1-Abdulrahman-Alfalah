@@ -33,15 +33,25 @@ Document your development process as you work on the assignment. Add entries sho
 ## Your Development Log:
 
 ### Entry 1 - [Date and Time]
-**What I did**: 
+**What I did**: Environment Setup, Repository Initialization, and Code Analysis.
 
 **Details**: 
+- Created a GitHub account using my university email and forked the starter repository.
+- Renamed the repository to OS-Assignment1-Abdulrahman-Alfalah and made it public.
+- Connected VS Code to my GitHub account and installed the recommended extensions.
+- Changed the studentID on line 150 of SchedulerSimulation.java to my actual ID (445052834).
+- Read the entire 300 lines of the starter code to understand how the Round-Robin algorithm and Threads work.
+- Watched the provided YouTube tutorials and read the Wikipedia pages for deeper understanding.
+- Used AI tools to explain some complex parts of the code and to help troubleshoot environment issues.
 
-**Challenges**: 
+**Challenges**: The code wouldn't run initially because I was using the "Code Runner" button directly, which couldn't find the main class or link the files together.
 
-**Solution**: 
+**Solution**: With the help of AI, I found two ways to fix this:
+- Manual Way: Using the terminal command java -cp . SchedulerSimulation to tell Java exactly where to find the files.
+- IDE Way: Using the small "Run" button that appears directly above the main method, which handles the setup automatically.
+The simulation is now working perfectly
 
-**Time spent**: 
+**Time spent**: 3 Hours
 
 ---
 
