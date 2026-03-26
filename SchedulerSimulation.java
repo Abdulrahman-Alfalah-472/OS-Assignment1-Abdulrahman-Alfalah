@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
@@ -29,13 +28,15 @@ class Process implements Runnable {
     private int burstTime; // Total time the process requires to complete (in milliseconds)
     private int timeQuantum; // Time slice (time quantum) allowed per CPU access (in milliseconds)
     private int remainingTime; // Time left for the process to finish its execution
+    private int priority; // Priority field to store process priority (1-5), Values will be used to later for priority scheduling from high to low 
 
     // Constructor to initialize the process with name, burst time, and time quantum
-    public Process(String name, int burstTime, int timeQuantum) {
+    public Process(String name, int burstTime, int timeQuantum, int priority) {
         this.name = name;
         this.burstTime = burstTime;
         this.timeQuantum = timeQuantum;
         this.remainingTime = burstTime; // Initially, remaining time is equal to the burst time
+        this.priority = priority; // Updated constructor to add the new field
     }
 
     // This method will be called when the thread for this process is started
@@ -136,6 +137,10 @@ class Process implements Runnable {
     public int getRemainingTime() {
         return remainingTime;
     }
+    // New getter to access priority field and be able to display it later
+    public int getPriority(){
+        return priority;
+    }
 
     // Check if the process has finished (i.e., no remaining time)
     public boolean isFinished() {
@@ -157,12 +162,34 @@ public class SchedulerSimulation {
         
         // Generate random number of processes between 10 and 20
         int numProcesses = 10 + random.nextInt(11); // Random number between 10 and 20
+
+        // Generate random number between 1 and 5 for priority
+        int priority = 1 + random.nextInt(5);
         
         // Queue to manage processes in a First-In-First-Out (FIFO) order
-        Queue<Thread> processQueue = new LinkedList<>();
+        // Queue<Thread> processQueue = new LinkedList<>();
+       
         
         // Map to associate each thread with its respective process object
         Map<Thread, Process> processMap = new HashMap<>();
+
+         /*
+        I noticed that the assignment only requires generating and printing the priority,
+        but it does not actually use priority to control execution order.
+        I noticed the scheduler was still working in FIFO order, so priority
+        had no real effect.
+        
+        I replaced the normal Queue with a PriorityQueue so processes are
+        sorted by priority automatically.
+        
+        The comparator compares two threads (t1, t2) using:
+            priority(t2) - priority(t1)
+        
+        If the result is positive, t2 runs first.
+        I used (t2 - t1) so higher priority values run before lower ones.
+        */
+        Queue<Thread> processQueue = new java.util.PriorityQueue<>(
+        (t1, t2) -> processMap.get(t2).getPriority() - processMap.get(t1).getPriority());
         
         // Print simulation header with elegant formatting
         System.out.println("\n" + Colors.BOLD + Colors.BRIGHT_CYAN + 
@@ -197,7 +224,8 @@ public class SchedulerSimulation {
             int burstTime = timeQuantum/2 + random.nextInt(2 * timeQuantum + 1);
             
             // Create a new process object with a unique name, burst time, and the defined time quantum
-            Process process = new Process("P" + i, burstTime, timeQuantum);
+            // Added the priority parameter to the constructor call 
+            Process process = new Process("P" + i, burstTime, timeQuantum, priority);
             
             // Add the process to the ready queue and the map
             addProcessToQueue(process, processQueue, processMap);
@@ -293,6 +321,7 @@ public class SchedulerSimulation {
         // Print a message indicating the process has entered the ready queue
         System.out.println(Colors.BLUE + "  ➕ " + Colors.BOLD + Colors.CYAN + process.getName() + 
                           Colors.RESET + Colors.BLUE + " added to ready queue" + Colors.RESET + 
+                          Colors.RESET + Colors.WHITE + " (Priority: " + process.getPriority() + ") " + // Displaying priority 
                           " │ Burst time: " + Colors.YELLOW + process.getBurstTime() + "ms" + 
                           Colors.RESET);
     }
