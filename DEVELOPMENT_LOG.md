@@ -55,16 +55,24 @@ The simulation is now working perfectly
 
 ---
 
-### Entry 2 - [Date and Time]
-**What I did**: 
+### Entry 2 - [March 26, 2026, 9:30 PM]
+**What I did**: Implemented Feature 1 and upgraded the scheduler to Priority-Based Execution.
 
-**Details**: 
+**Details**:
+- I added a new variable called `priority` to the `Process` class to store a number from 1 to 5
+- I used `random.nextInt(5) + 1` to give every new process a random priority.
+- I updated the print message to show the priority
+- **Important Change**: I noticed that the priority was just being generated and displayed but didn't change the order of execution (it was still FIFO).
+  - To fix this, I changed the normal `Queue` to a `PriorityQueue`.
+  - I wrote some code to compare two processes. This tells the program to put the process with the higher number (like 5) at the front of the line so it runs first.
 
-**Challenges**: 
+**Challenges**: The program didn't know how to compare Threads by their priority because the priority number is inside the `Process` class.
 
 **Solution**: 
+- I used the `processMap` to help the program find the priority of each thread during the sorting process.
+- I used AI tools to fully understand how to write the `PriorityQueue` comparator correctly.
 
-**Time spent**: 
+**Time spent**: 2 Hours 
 
 ---
 
