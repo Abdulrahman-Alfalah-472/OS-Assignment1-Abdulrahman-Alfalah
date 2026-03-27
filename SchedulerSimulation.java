@@ -165,8 +165,6 @@ public class SchedulerSimulation {
         // Generate random number of processes between 10 and 20
         int numProcesses = 10 + random.nextInt(11); // Random number between 10 and 20
 
-        // Generate random number between 1 and 5 for priority
-        int priority = 1 + random.nextInt(5);
         
         // Queue to manage processes in a First-In-First-Out (FIFO) order
         // Queue<Thread> processQueue = new LinkedList<>();
@@ -224,6 +222,9 @@ public class SchedulerSimulation {
         for (int i = 1; i <= numProcesses; i++) {
             // Random burst time for each process between timeQuantum/2 and 3*timeQuantum
             int burstTime = timeQuantum/2 + random.nextInt(2 * timeQuantum + 1);
+
+            // Generate random number between 1 and 5 for priority
+            int priority = 1 + random.nextInt(5);
             
             // Create a new process object with a unique name, burst time, and the defined time quantum
             // Added the priority parameter to the constructor call 
@@ -317,12 +318,13 @@ public class SchedulerSimulation {
                                         Map<Thread, Process> processMap) {
         // Create a new thread to run the process
         Thread thread = new Thread(process);
+
+        // Map the thread to the process, so we can track the process associated with each thread
+        processMap.put(thread, process);
         
         // Add the thread to the ready queue
         processQueue.add(thread);
         
-        // Map the thread to the process, so we can track the process associated with each thread
-        processMap.put(thread, process);
         
         // Print a message indicating the process has entered the ready queue
         System.out.println(Colors.BLUE + "  ➕ " + Colors.BOLD + Colors.CYAN + process.getName() + 
