@@ -28,7 +28,9 @@ class Process implements Runnable {
     private int burstTime; // Total time the process requires to complete (in milliseconds)
     private int timeQuantum; // Time slice (time quantum) allowed per CPU access (in milliseconds)
     private int remainingTime; // Time left for the process to finish its execution
-    private int priority; // Priority field to store process priority (1-5), Values will be used to later for priority scheduling from high to low 
+    private int priority; // Priority field to store process priority (1-5), Values will be used to later for priority scheduling from high to low
+    private long creationTime; // Time when process was created
+    private long completionTime; // Time when process finished excution
 
     // Constructor to initialize the process with name, burst time, and time quantum
     public Process(String name, int burstTime, int timeQuantum, int priority) {
@@ -37,6 +39,7 @@ class Process implements Runnable {
         this.timeQuantum = timeQuantum;
         this.remainingTime = burstTime; // Initially, remaining time is equal to the burst time
         this.priority = priority; // Updated constructor to add the new field
+        this.creationTime = System.currentTimeMillis(); // Record Creation time
     }
 
     // This method will be called when the thread for this process is started
@@ -89,6 +92,7 @@ class Process implements Runnable {
             System.out.println(Colors.BRIGHT_GREEN + "  ✓ " + Colors.BOLD + Colors.CYAN + name + 
                               Colors.RESET + Colors.BRIGHT_GREEN + " finished execution!" + 
                               Colors.RESET);
+            completionTime = System.currentTimeMillis(); // Record completion time                  
         }
         System.out.println();
     }
@@ -120,6 +124,8 @@ class Process implements Runnable {
             System.out.println(Colors.BRIGHT_GREEN + "  ✓ " + Colors.BOLD + Colors.CYAN + name + 
                               Colors.RESET + Colors.BRIGHT_GREEN + " finished execution!" + Colors.RESET);
             System.out.println();
+            completionTime = System.currentTimeMillis(); // Record completion time                  
+
         } catch (InterruptedException e) {
             System.out.println(Colors.RED + "  ✗ " + name + " was interrupted." + Colors.RESET);
         }
@@ -141,7 +147,10 @@ class Process implements Runnable {
     public int getPriority(){
         return priority;
     }
-
+    // Calculate total waiting time
+    public long getWaitingTime(){
+        return completionTime - burstTime - creationTime;
+    }
     // Check if the process has finished (i.e., no remaining time)
     public boolean isFinished() {
         return remainingTime <= 0;
@@ -307,10 +316,19 @@ public class SchedulerSimulation {
                           "                     ✓  ALL PROCESSES COMPLETED  ✓                            " + 
                           Colors.RESET + Colors.BOLD + Colors.BRIGHT_GREEN + "║" + Colors.RESET);
         // Displaying the total number of context switches
-        System.out.println(Colors.BOLD + Colors.BRIGHT_YELLOW +"Total context switches: " + contextSwitchesNumber + Colors.RESET);
+        System.out.println(Colors.BOLD + Colors.BRIGHT_YELLOW +
+                          "                     Total context switches: " + contextSwitchesNumber + Colors.RESET);
         System.out.println(Colors.BOLD + Colors.BRIGHT_GREEN + 
                           "╚════════════════════════════════════════════════════════════════════════════════╝" + 
                           Colors.RESET + "\n");
+
+        System.out.println(Colors.BOLD + Colors.CYAN +
+                        "\nProcess Summary Table\n" + Colors.RESET);
+
+        System.out.println("Process\tBurst Time\tWaiting Time");
+
+        for (Process process : processMap.values()) {
+        System.out.println(process.getName() + "\t" + process.getBurstTime() + "ms\t\t" + process.getWaitingTime() + "ms");}                  
     }
     
     // Method to add a process to the queue and map, while printing a "ready" message
