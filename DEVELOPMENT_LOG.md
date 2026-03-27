@@ -77,15 +77,23 @@ The simulation is now working perfectly
 ---
 
 ### Entry 3 - [Date and Time]
-**What I did**: 
+**What I did**: Implemented Feature 2 `Count Context Switches` and fixed issues related to priority ordering.
 
 **Details**: 
+- I added a static variable `contextSwitchesNumber` to count how many times the CPU switches from one process to another.
+- I incremented the counter every time the scheduler selects a new process from the ready queue.
+- I displayed the total number of context switches at the end of the simulation.
+- I also improved Feature 1, I ensured each process gets its own random priority between 1 and 5.
 
 **Challenges**: 
+- I got a `NullPointerException` because the `PriorityQueue` tried to compare threads before their process was stored in `processMap`.
+- I also noticed that priority values were the same for each process.
 
 **Solution**: 
+- I fixed the `NullPointerException` by storing each thread in `processMap` before adding it to the `PriorityQueue`.
+- I made sure random priority is generated separately for every process, By moving the variable into the process generation loop.
 
-**Time spent**: 
+**Time spent**: 1.5 Hours.
 
 ---
 
