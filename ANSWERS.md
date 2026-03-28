@@ -11,7 +11,10 @@ Answer all 4 questions with detailed explanations. Each answer should be **3-5 s
 
 **Your Answer:**
 
-[Write your answer here. Consider: What is a process? What is a thread? How do they differ in terms of memory, resources, creation overhead? Why are threads more suitable for this simulation?]
+- A `process` is an independent program in execution that has its own dedicated memory space and resources, while a `thread` is a smaller unit of execution that lives inside a process.
+- `Threads` are often called "lightweight processes" because they share the same memory and resources of their parent process, which makes communication between them much faster.
+- In the assignment, we used threads instead of processes because creating a thread has much lower overhead and uses less system memory.
+- This was more suitable for our simulation because we needed many processes to run at the same time and share the same `processMap` and `readyQueue` to track their progress efficiently.
 
 ---
 
@@ -21,15 +24,34 @@ Answer all 4 questions with detailed explanations. Each answer should be **3-5 s
 
 **Your Answer:**
 
-[Write your answer here. Describe the specific behavior - where does the process go? When does it run again? Give an example from your actual program output showing a process that was re-queued.]
+- In Round-Robin scheduling, if a process does not finish its work during the given time quantum, the CPU interrupts it and performs a context switch.
+- The process is then moved from `Running` state back to the end of the `Ready Queue` so other processes can use the CPU.
+- In the program, i achieved this by checking if `(!process.isFinished())` and then calling `processQueue.add(thread)` to re-enqueue it.
 
 Example from my output:
 ```
-[Paste a relevant snippet from your program output here showing a process being re-queued]
+┌─ Ready Queue ─────────────────────────────────────────────────────────────────
+│ [P9 ? P4 ? P3 ? P10 ? P5 ? P6 ? P7 ? P1 ? P8]
+└───────────────────────────────────────────────────────────────────────────────
+
+  ? P2 executing quantum [4000ms]
+  ? Quantum progress: [███████████████] 100%
+  ? P2 completed quantum 4000ms │ Overall progress: [███████████████░░░░░] 76%
+     Remaining time: 1218ms
+  ? P2 yields CPU for context switch
+
+  ? P2 added to ready queue (Priority: 5)  │ Burst time: 5218ms
+┌─ Ready Queue ─────────────────────────────────────────────────────────────────
+│ [P2 ? P4 ? P3 ? P10 ? P5 ? P6 ? P7 ? P1 ? P8]
+└───────────────────────────────────────────────────────────────────────────────
 ```
 
 **Explanation of example:**
-[Explain what's happening in the output snippet you pasted]
+- In this snippet, The process P2 started executing with a burst time of 5218ms, but the time quantum was set to 4000ms.
+-  Because P2 could not finish its work within the allowed time, a context switch occurred, and the system displayed "P2 yields CPU."
+
+- Also since we are using a PriorityQueue, P2 was not just sent to the back of the line. Because P2 has a high priority of 5, it was re-inserted at the front of the queue (as shown in the second Ready Queue).
+- This shows that our scheduler successfully combines Round-Robin with Priority-based ordering.
 
 ---
 
@@ -39,17 +61,17 @@ Example from my output:
 
 **Your Answer:**
 
-[Write your answer here. For each state, explain when P1 enters that state during the simulation. Use your understanding of the code to trace through the lifecycle.]
 
-1. **New**: [When is P1 in New state?]
 
-2. **Runnable**: [When does P1 become Runnable?]
+1. **New**: [When we call `new Thread(process)`, but before calling the `.start()` method.]
 
-3. **Running**: [When is P1 Running?]
+2. **Runnable**: [When it is added to the `processQueue`.]
 
-4. **Waiting**: [When/why would P1 be Waiting?]
+3. **Running**: [when the scheduler simulator calls `currentThread.start()` and the code inside the `run()` is being excuted]
 
-5. **Terminated**: [When is P1 Terminated?]
+4. **Waiting**: [when we use `Thread.sleep()` to simulate processing time, or when we use `currentThread.join()` to wait for P1 to finish its quantum.]
+
+5. **Terminated**: [When `run()` method finishes and `remainingTime` reaches 0.]
 
 ---
 
@@ -59,31 +81,31 @@ Example from my output:
 
 **Your Answer:**
 
-### Example 1: [Name of application/scenario]
+### Example 1: [Web Server]
 
 **Description**: 
-[Describe the real-world scenario or application]
+[A server handling many people visiting a website at the same time.]
 
 **Why Round-Robin works well here**: 
-[Explain why Round-Robin scheduling is suitable. Consider fairness, responsiveness, predictability, etc.]
+[It provides Fairness. Every user gets a small amount of CPU time, so no one has to wait too long, even if someone else is downloading a very large file.]
 
-### Example 2: [Name of application/scenario]
+### Example 2: [PC Multitasking]
 
 **Description**: 
-[Describe the real-world scenario or application]
+[Running many apps at once, like VS code, Chrome, and Word.]
 
 **Why Round-Robin works well here**: 
-[Explain why Round-Robin scheduling is suitable. Consider fairness, responsiveness, predictability, etc.]
+[It provides Responsiveness. The CPU switches between apps so quickly that they all seem to run at the same time.]
 
 ---
 
 ## Summary
 
 **Key concepts I understood through these questions:**
-1. 
-2. 
-3. 
+1. Context Switching
+2. Priority Scheduling
+3. Thread Lifecycle
 
 **Concepts I need to study more:**
-1. 
-2. 
+1. Thread Library Methods
+2. Thread Management
