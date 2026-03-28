@@ -76,7 +76,7 @@ The simulation is now working perfectly
 
 ---
 
-### Entry 3 - [Date and Time]
+### Entry 3 - [March 27, 2026, 8:45 PM]
 **What I did**: Implemented Feature 2 `Count Context Switches` and fixed issues related to priority ordering.
 
 **Details**: 
@@ -97,16 +97,21 @@ The simulation is now working perfectly
 
 ---
 
-### Entry 4 - [Date and Time]
-**What I did**: 
+### Entry 4 - [March 28, 2026, 3:00 AM]
+**What I did**: Implemented Feature 3 Track Waiting Time.
 
 **Details**: 
+- I added two fields to the `Process` class: `creationTime` and `completionTime`.
+- I recorded the creation time when each process is created using `System.currentTimeMillis()`.
+- I recorded the completion time when the process finishes execution.
+- I calculated waiting time using the formula: `Waiting Time` = `Completion Time` - `Burst Time` - `creation Time`.
+- I displayed a summary table at the end of the simulation showing `Process Name`, `Burst Time`, and `Waiting Time`.
 
-**Challenges**: 
+**Challenges**: I needed to make sure the completion time is recorded only when the process fully finishes, not after each quantum.
 
-**Solution**: 
+**Solution**: I recorded `completionTime` only when `remainingTime` becomes 0.
 
-**Time spent**: 
+**Time spent**: 45 Mins
 
 ---
 
