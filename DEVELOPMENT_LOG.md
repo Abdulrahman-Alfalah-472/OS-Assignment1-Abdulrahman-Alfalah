@@ -115,16 +115,22 @@ The simulation is now working perfectly
 
 ---
 
-### Entry 5 - [Date and Time]
-**What I did**: 
+### Entry 5 - [March 29, 2026, 2:00 PM]
+**What I did**: Final documentation, reflection, and video presentation.
 
 **Details**: 
+- Answered all the technical questions in `Answers.md` regarding Threads, Processes, and Round-Robin behavior.
+- Completed the `Reflection.md` file.
+- Recorded a 4-minute video to demonstrate the project.
+- In the video,I showed my GitHub repository, and explained the three features I added (Priority, Context Switches, and Waiting Time).
+- i did a live execution of the code in VS Code to show the simulation
+- Explained the `Thread.join()` concept
 
-**Challenges**: 
+**Challenges**: The main challenge was the video time limit. It was very difficult to explain the repository setup, the three code modifications, and run the execution demo all within just 2 to 3 minutes. 
 
-**Solution**: 
+**Solution**: I had to record the video multiple times and practice my explanation to make it faster. I also repeated the recording  until I got a good result that covered all the points clearly in a very short time.
 
-**Time spent**: 
+**Time spent**: 3 Hours
 
 ---
 
@@ -143,10 +149,10 @@ The simulation is now working perfectly
 
 ## Summary
 
-**Total time spent on assignment**: [X hours]
+**Total time spent on assignment**: [10 hours]
 
-**Most challenging part**: 
+**Most challenging part**: Making the PriorityQueue work correctly to sort the tasks by their importance without errors
 
-**Most interesting learning**: 
+**Most interesting learning**: Watching how Context Switching lets the CPU run many tasks at the same time very fast.
 
-**What I would do differently next time**: 
+**What I would do differently next time**: Do a deep revision for the concepts before implementing the features.
