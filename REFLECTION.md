@@ -9,7 +9,7 @@ Answer the following questions about your learning experience. Each answer shoul
 
 **Your Answer:**
 
-[Write your answer here. Discuss specific concepts like thread creation, thread states, how threads execute concurrently, what surprised you, etc.]
+I learned that multithreading allows one program to do many things at the same time. I understood the thread lifecycle, from being New to Running and then Terminated. I saw how the CPU uses a time quantum to switch between threads very quickly. It was interesting to see that threads share memory, which makes them faster than separate processes. This assignment helped me see how real operating systems manage multiple tasks.
 
 ---
 
@@ -17,7 +17,7 @@ Answer the following questions about your learning experience. Each answer shoul
 
 **Your Answer:**
 
-[Describe the specific challenge. Was it understanding the code? Implementing a feature? Using Git? Explain what made it difficult and how it relates to the course concepts.]
+The hardest part was making the Priority-Based Scheduling work correctly. I had a big problem with a NullPointerException because the queue tried to sort threads before they were ready. Also, making sure every process got a different random priority was tricky at first.
 
 ---
 
@@ -25,7 +25,7 @@ Answer the following questions about your learning experience. Each answer shoul
 
 **Your Answer:**
 
-[Describe your problem-solving approach. Did you read documentation? Ask for help? Debug systematically? What resources did you use? What strategies worked?]
+I overcame these problems by testing the code step-by-step and printing messages to the console. When I got errors, I traced the code to find exactly where the data was missing. I used AI tools to understand how to fix the sorting logic in the PriorityQueue.
 
 ---
 
@@ -33,7 +33,7 @@ Answer the following questions about your learning experience. Each answer shoul
 
 **Your Answer:**
 
-[Give specific examples from real applications you use (web browsers, games, mobile apps, etc.). Explain why threads are useful in those scenarios. Connect to what you learned in this assignment.]
+I can apply multithreading in everyday apps like Web Browsers. For example, one thread loads the text you are reading, while another thread downloads images in the background so the page doesn't freeze. In this assignment, I learned that giving Priority to these tasks is key; the thread that responds to my clicks should be faster than the one downloading files. This concept is the reason why we can browse many websites smoothly at the same time.
 
 ---
 
@@ -47,12 +47,12 @@ Answer the following questions about your learning experience. Each answer shoul
 
 ### How confident do you feel about multithreading concepts now?
 
-[Rate yourself and explain: Beginner / Intermediate / Confident]
+My confident level is: Intermediate.
 
-[Explain your rating - what do you understand well? What needs more practice?]
+I understand the basics of threads and scheduling.
 
 ---
 
 ### Feedback on the assignment
 
-[Any comments about the assignment? Was it helpful? Too easy/hard? Suggestions for improvement?]
+The assignment was great because it made theoretical OS concepts very visual and practical.
